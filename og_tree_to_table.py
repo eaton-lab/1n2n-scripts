@@ -97,22 +97,20 @@ def get_combinatorial_triplets(ogid: str, tree: toytree.ToyTree, ingroup_prefix:
 
 def get_parser():
     parser = ArgumentParser("og_tree_to_table")
-    parser.add_argument("newicks", type=Path, help="path to one or more newick files (regex allowed)")
+    parser.add_argument("newicks", type=Path, nargs="*", help="path to one or more newick files (regex allowed)")
     parser.add_argument("-i", type=str, required=True, help="prefix for ingroup gene names")
     parser.add_argument("-s", type=str, required=True, help="prefix for sister gene names")
     parser.add_argument("-o", type=str, required=True, help="prefix for outgroup gene names")
     parser.add_argument("--relabel", action="store_true", help="remove first underscore in gene names")
     return parser
 
-
-def parse_newicks_as_one_or_more_paths(path: Path) -> list[Path]:
-    if path.is_file():
-        return [path]
-    if any(char in path for char in "*?[]"):
-        matched_files = list(path.parent.glob(path.name))
-        return matched_files if matched_files else []
-    return []
-
+# def parse_newicks_as_one_or_more_paths(path: Path) -> list[Path]:
+#     if path.is_file():
+#         return [path]
+#     if any(char in path for char in "*?[]"):
+#         matched_files = list(path.parent.glob(path.name))
+#         return matched_files if matched_files else []
+#     return []
 
 def main():
     # get command line arguments
@@ -121,7 +119,7 @@ def main():
 
     # get a dataframe for every newick file
     dfs = []
-    for newick in parse_newicks_as_one_or_more_paths(args.newicks):
+    for newick in args.newicks:
 
         # custom to our file layout
         ogid = newick.parent.name
