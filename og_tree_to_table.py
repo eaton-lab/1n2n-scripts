@@ -54,7 +54,7 @@ def get_combinatorial_triplets(ogid: str, tree: toytree.ToyTree, ingroup_prefix:
             candidates = trace.get_sisters()
             for cnode in candidates:
                 for tip in cnode.get_leaf_names():
-                    if tip.startswith("C_prot"):
+                    if tip.startswith(sister_prefix)
                         sisters.append(tip)
             trace = trace.up
             if sisters:
@@ -65,7 +65,7 @@ def get_combinatorial_triplets(ogid: str, tree: toytree.ToyTree, ingroup_prefix:
             candidates = trace.get_sisters()
             for cnode in candidates:
                 for tip in cnode.get_leaf_names():
-                    if tip.startswith("G_dry"):
+                    if tip.startswith(outg_prefix):
                         outgroups.append(tip)
             trace = trace.up
             if outgroups:
