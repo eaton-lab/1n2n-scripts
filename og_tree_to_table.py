@@ -126,7 +126,9 @@ def main():
         tree = toytree.tree(newick)
         df = get_combinatorial_triplets(ogid, tree, args.i, args.s, args.o, args.relabel)
         dfs.append(df)
-    return pd.concat(dfs).to_csv(sep="\t")
+    
+    data = pd.concat(dfs).to_csv(sep="\t")
+    print(data)
 
 
 if __name__ == "__main__":
