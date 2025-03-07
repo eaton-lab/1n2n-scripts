@@ -127,7 +127,8 @@ def main():
         # run
         tree = toytree.tree(newick)
         df = get_combinatorial_triplets(ogid, tree, args.i, args.s, args.o, args.relabel)
-        dfs.append(df)
+        if df:
+            dfs.append(df)
     
     data = pd.concat(dfs).to_csv(sep="\t")
     print(data)
