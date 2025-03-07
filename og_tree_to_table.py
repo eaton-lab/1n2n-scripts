@@ -24,7 +24,7 @@ import toytree
 import pandas as pd
 
 
-def get_combinatorial_triplets(ogid: str, tree: toytree.ToyTree, ingroup_prefix: str, sister_prefix: str, outg_prefix: str) -> pd.DataFrame | None:
+def get_combinatorial_triplets(ogid: str, tree: toytree.ToyTree, ingroup_prefix: str, sister_prefix: str, outg_prefix: str, relabel: bool) -> pd.DataFrame | None:
     """Return minimum spanning taxon triplets from an orthogroup tree
 
     rep    OG   i-clade   mean-group                 i            s               o
@@ -101,7 +101,7 @@ def get_parser():
 	parser.add_argument("-i", type=str, required=True, help="prefix for ingroup gene names")	
 	parser.add_argument("-s", type=str, required=True, help="prefix for sister gene names")
 	parser.add_argument("-o", type=str, required=True, help="prefix for outgroup gene names")
-	parser.add_argument("--reformat", action="store_true", help="remove first underscore in gene names")
+	parser.add_argument("--relabel", action="store_true", help="remove first underscore in gene names")
 	return parser
 
 
