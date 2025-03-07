@@ -105,7 +105,7 @@ def get_parser():
     return parser
 
 
-def parse_newicks_as_one_or_more_paths(path: Path) -> List[Path]:
+def parse_newicks_as_one_or_more_paths(path: Path) -> list[Path]:
     if path.is_file():
         return [path]
     if any(char in path for char in "*?[]"):
