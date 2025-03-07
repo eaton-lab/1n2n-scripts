@@ -122,7 +122,11 @@ def main():
     # get a dataframe for every newick file
     dfs = []
     for newick in parse_newicks_as_one_or_more_paths(args.newicks):
-        ogid = newick.stem
+
+        # custom to our file layout
+        ogid = newick.parent.name
+
+        # run
         tree = toytree.tree(newick)
         df = get_combinatorial_triplets(ogid, tree, args.i, args.s, args.o, args.relabel)
         dfs.append(df)
