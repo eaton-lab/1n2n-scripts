@@ -48,14 +48,28 @@ def get_combinatorial_triplets(ogid: str, tree: toytree.ToyTree, ingroup_prefix:
         sisters = []
         outgroups = []
 
-        # get a sister
+        # get the closest sister
         trace = node
         while trace.up:
+            # get sister or sisters (e.g., if polytomy)
             candidates = trace.get_sisters()
             for cnode in candidates:
-                for tip in cnode.get_leaf_names():
-                    if tip.startswith(sister_prefix):
-                        sisters.append(tip)
+                tips = cnode.get_leaf_names()
+
+                # record if the outgroup is as close or closer than sister
+                outg_to_soon = any(i.startswith(outg_prefix) for i in tips)
+
+                # store sisters if present
+                if not outg_to_soon:
+                    for tip in tips:
+                        if tip.startswith(sister_prefix):
+                            sisters.append(tip)
+
+            # break if outgroup was closer
+            if outg_to_soon:
+                break
+
+            # continue moving up to find relatives
             trace = trace.up
             if sisters:
                 break
@@ -104,13 +118,6 @@ def get_parser():
     parser.add_argument("--relabel", action="store_true", help="remove first underscore in gene names")
     return parser
 
-# def parse_newicks_as_one_or_more_paths(path: Path) -> list[Path]:
-#     if path.is_file():
-#         return [path]
-#     if any(char in path for char in "*?[]"):
-#         matched_files = list(path.parent.glob(path.name))
-#         return matched_files if matched_files else []
-#     return []
 
 def main():
     # get command line arguments
