@@ -124,6 +124,10 @@ def main():
     parser = get_parser()
     args = parser.parse_args()
 
+    # require trees to be found
+    if not args.newicks:
+        raise IOError("No tree newick files found")
+
     # get a dataframe for every newick file
     dfs = []
     for newick in args.newicks:
