@@ -137,8 +137,11 @@ def main():
         if df is not None:
             dfs.append(df)
     
-    data = pd.concat(dfs).to_csv(sep="\t")
-    print(data)
+    if dfs:
+        data = pd.concat(dfs).to_csv(sep="\t")
+        print(data)
+    else:
+        raise Exception("No data was retained. Check names?")
 
 
 if __name__ == "__main__":
