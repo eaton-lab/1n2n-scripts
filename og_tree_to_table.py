@@ -57,16 +57,16 @@ def get_combinatorial_triplets(ogid: str, tree: toytree.ToyTree, ingroup_prefix:
                 tips = cnode.get_leaf_names()
 
                 # record if the outgroup is as close or closer than sister
-                outg_to_soon = any(i.startswith(outg_prefix) for i in tips)
+                outg_too_soon = any(i.startswith(outg_prefix) for i in tips)
 
                 # store sisters if present
-                if not outg_to_soon:
+                if not outg_too_soon:
                     for tip in tips:
                         if tip.startswith(sister_prefix):
                             sisters.append(tip)
 
             # break if outgroup was closer
-            if outg_to_soon:
+            if outg_too_soon:
                 break
 
             # continue moving up to find relatives
